@@ -1,3 +1,12 @@
 <template>
-    <h1>Expense Tracker</h1>
+  <Header />
 </template>
+
+<script>
+import Header from './components/Header.vue';
+export default {
+  components: {
+    Header,
+  },
+};
+</script>
