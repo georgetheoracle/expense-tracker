@@ -3,7 +3,9 @@
   <div class="contain">
     <Balance :total="total" />
     <IncomeExpense :income="income" :expense="expense" />
-    <TransactionList :transactions="transactions" />
+    <TransactionList
+      :transactions="transactions"
+      @delete-transaction="deleteTransaction" />
     <AddTransaction @transactionSubmitted="handleTransactionSubmitted" />
   </div>
 </template>
@@ -54,6 +56,14 @@ const handleTransactionSubmitted = (newTransaction) => {
     ...newTransaction,
   });
   toast.success('Transaction added successfully!');
+};
+
+// Delete transaction
+const deleteTransaction = (id) => {
+  transactions.value = transactions.value.filter(
+    (transaction) => transaction.id !== id,
+  );
+  toast.success('Transaction deleted successfully!');
 };
 // Generate unique ID for transactions(helper function)
 function generateUniqueId() {
