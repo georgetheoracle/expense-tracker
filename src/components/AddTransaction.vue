@@ -21,10 +21,24 @@
 </template>
 <script setup>
 import { ref } from 'vue';
-
+import { useToast } from 'vue-toastification';
+import { defineEmits } from 'vue';
+const emit = defineEmits(['transactionSubmitted']);
 const text = ref('');
 const amount = ref(0);
+const toast = useToast();
 const onSubmit = () => {
-  console.log('Form submitted');
+  if (!text.value || !amount.value) {
+    toast.error('Please add a text and amount');
+    return;
+  }
+  const newTransaction = {
+    text: text.value,
+    amount: parseFloat(amount.value),
+  };
+  emit('transactionSubmitted', newTransaction);
+
+  text.value = '';
+  amount.value = '';
 };
 </script>
